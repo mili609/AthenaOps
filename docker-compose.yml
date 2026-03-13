@@ -1,0 +1,43 @@
+# ============================================================
+# docker-compose.yml — AthenaOps Full Stack
+# ============================================================
+# Starts both the backend API and the frontend in containers.
+# Run with: docker-compose up --build
+#
+# Make sure to create backend/.env before running!
+# ============================================================
+
+version: "3.9"
+
+services:
+
+  # ---- Backend API ----
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: athenaops-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+
+  # ---- Frontend (Next.js) ----
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: athenaops-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      # Tell the frontend where the backend lives.
+      # Inside Docker Compose, services communicate by service name.
+      - NEXT_PUBLIC_API_URL=http://localhost:5000/api
+    depends_on:
+      - backend
+    restart: unless-stopped

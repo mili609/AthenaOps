@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- Theme tokens ---- */
+:root {
+  --bg-0: #090d16;
+  --bg-1: #0d1528;
+  --surface: #111a2f;
+  --surface-2: #16223a;
+  --line: #243556;
+  --text-0: #edf2ff;
+  --text-1: #9baecc;
+  --accent: #23c6a8;
+  --accent-2: #0ea5e9;
+}
+
+body {
+  background: radial-gradient(80% 120% at 10% 0%, #15284d 0%, var(--bg-0) 55%),
+    radial-gradient(100% 120% at 90% 20%, #102f3d 0%, transparent 50%),
+    var(--bg-0);
+  color: var(--text-0);
+  font-family: var(--font-heading), sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+code,
+pre,
+.code-font {
+  font-family: var(--font-code), monospace;
+}
+
+.animated-grid {
+  position: relative;
+}
+
+.animated-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-gradient {
+  background: linear-gradient(130deg, #0ea5e9 0%, #23c6a8 35%, #3758f9 70%, #0ea5e9 100%);
+  background-size: 220% 220%;
+  animation: drift 12s ease infinite;
+}
+
+@keyframes drift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Code block scrollbar styling */
+pre::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+pre::-webkit-scrollbar-track {
+  background: #101828;
+}
+pre::-webkit-scrollbar-thumb {
+  background: #2f4568;
+  border-radius: 9999px;
+}
